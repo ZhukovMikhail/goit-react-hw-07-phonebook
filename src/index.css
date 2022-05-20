@@ -1,4 +1,19 @@
-@import-normalize; /* bring in normalize.css styles */
+/* @import-normalize; bring in normalize.css styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+}
+ul,
+li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
 
 body {
   margin: 0;
@@ -12,4 +27,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.fixed {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-51.4%);
 }
