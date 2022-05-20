@@ -6,6 +6,19 @@ export const StyledContList = styled.ul`
   /* height: 40vh; */
   overflow-y: scroll;
   margin: 10px 10px;
+  border: 1px solid wheat;
+  border-radius: 6px;
+
+  /* background: -webkit-linear-gradient(
+    to right,
+    rgba(192, 191, 160, 0.3),
+    rgba(67, 68, 55, 0.3)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(192, 191, 160, 0.3),
+    rgba(67, 68, 55, 0.3)
+  ); */
 `;
 // export const StyledItem = styled.li`
 //   display: flex;
