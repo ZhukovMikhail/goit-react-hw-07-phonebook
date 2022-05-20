@@ -1,36 +1,55 @@
 import { Formik, ErrorMessage } from 'formik';
-import { StyledForm, Item, StyledButton } from 'components/Form/Form.styled';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { addContact, getContacts } from 'redux/contactSlice';
-// import { v4 as uuidv4 } from 'uuid';
+import {
+  StyledForm,
+  Item,
+  FormBox,
+  CloseButton,
+} from 'components/Form/Form.styled';
+import { StyledButton } from 'components/Button/Button.Styled';
 import { notify, isContactDubled, schema } from 'utils/utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PropTypes from 'prop-types';
 import { useGetContactsQuery } from 'redux/createApi';
+import { useDispatch } from 'react-redux';
+import { selector } from 'redux/modalSlice';
+import PropTypes from 'prop-types';
 
-export const MyForm = ({ mutateContact, initialValues, btn1, btn2, id }) => {
+export const MyForm = ({
+  mutator,
+  initialFormValues,
+  btn1,
+  btn2,
+  id,
+  name,
+}) => {
+  const dispatch = useDispatch();
+
   const { data: contacts = [] } = useGetContactsQuery();
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     if (
       (isContactDubled(contacts, values, 'name') ||
         isContactDubled(contacts, values, 'number')) &&
-      btn1 === 'Add Contact'
+      name === 'AddContact'
     ) {
       notify();
       return;
     }
-    // dispatch(addContact({ id: uuidv4(), ...values }));
-    mutateContact({ id, ...values });
+    try {
+      mutator({ id, ...values });
+    } catch (error) {
+      console.log(error);
+    }
+
     resetForm();
+    dispatch(selector(false));
   };
 
   return (
-    <>
+    <FormBox>
       <ToastContainer />
       <Formik
-        initialValues={initialValues}
+        initialValues={initialFormValues}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
@@ -53,11 +72,20 @@ export const MyForm = ({ mutateContact, initialValues, btn1, btn2, id }) => {
           </StyledForm>
         )}
       </Formik>
-    </>
+      <CloseButton onClick={e => dispatch(selector(false))}>
+        &times;
+      </CloseButton>
+    </FormBox>
   );
 };
 
 MyForm.propTypes = {
   values: PropTypes.object,
   contacts: PropTypes.array,
+  mutator: PropTypes.func,
+  initialFormValues: PropTypes.object,
+  btn1: PropTypes.string,
+  btn2: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };

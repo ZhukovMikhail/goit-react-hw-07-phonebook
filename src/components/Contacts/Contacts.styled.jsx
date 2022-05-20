@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 
 export const StyledContList = styled.ul`
   width: 480px;
+  /* height: 40vh; */
+  overflow-y: scroll;
   margin: 10px 10px;
 `;
 // export const StyledItem = styled.li`

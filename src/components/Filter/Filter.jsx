@@ -10,10 +10,13 @@ export const Filter = () => {
     dispatch(filterContact(value));
   };
   return (
-    <StyledLabel>
-      Find my contacts by name
-      <StyledImput type="text" name="filter" onChange={inputHandler} />
-    </StyledLabel>
+    <>
+      <h2>Contacts:</h2>
+      <StyledLabel>
+        Find my contacts by name
+        <StyledImput type="text" name="filter" onChange={inputHandler} />
+      </StyledLabel>
+    </>
   );
 };
 

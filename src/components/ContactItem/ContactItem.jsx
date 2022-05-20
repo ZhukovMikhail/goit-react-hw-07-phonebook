@@ -1,20 +1,21 @@
-import {
-  StyledItem,
-  StyledButton,
-  TextBox,
-  EditFormBox,
-} from './ContactItem.styled';
-
-import { useState } from 'react';
+import { StyledItem, StyledButton, TextBox } from './ContactItem.styled';
 import { useDeleteContactMutation } from 'redux/createApi';
 
 import PropTypes from 'prop-types';
-import { Modal } from './Modal/Modal';
+
+import { useDispatch } from 'react-redux';
+import { selector, contactId } from 'redux/modalSlice';
+import { Modal } from 'components/Modal/Modal';
+import { useSelector } from 'react-redux';
 
 export const ContactItem = ({ contact }) => {
   const { name, number, id } = contact;
-  const [isOpenModal, setIsOpenModal] = useState(false);
+
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
+
+  const dispatch = useDispatch();
+  const modalSelector = useSelector(state => state.modal.selector);
+  const modalIdSelector = useSelector(state => state.modal.contactId);
 
   const onEnter = e => {
     document.querySelectorAll('.show').forEach(n => n.classList.remove('show'));
@@ -31,10 +32,11 @@ export const ContactItem = ({ contact }) => {
   };
 
   const handleEdit = e => {
-    setIsOpenModal(true);
-    document.querySelector('body').classList.add('fixed');
+    const id = e.currentTarget.parentElement.id;
+    dispatch(selector('edit'));
+    dispatch(contactId(id));
 
-    // openModal => getContact{ id }=> form.value = contactValues{id}=> editContact(submitFormValue)
+    document.querySelector('body').classList.add('fixed');
   };
 
   return (
@@ -47,15 +49,13 @@ export const ContactItem = ({ contact }) => {
         <StyledButton type="button" onClick={handleDelete} disabled={isLoading}>
           {isLoading ? 'Loading' : 'Delete'}
         </StyledButton>
-        <StyledButton type="button" onClick={handleEdit}>
+        <StyledButton type="button" onClick={handleEdit} disabled={isLoading}>
           Edit
         </StyledButton>
       </StyledItem>
-      <EditFormBox>
-        {isOpenModal && (
-          <Modal setisModalOpen={setIsOpenModal} contact={contact} />
-        )}
-      </EditFormBox>
+      {modalSelector === 'edit' && id === modalIdSelector && (
+        <Modal id={id}></Modal>
+      )}
     </>
   );
 };
@@ -63,4 +63,6 @@ export const ContactItem = ({ contact }) => {
 ContactItem.prototype = {
   filteredContacts: PropTypes.array,
   contacts: PropTypes.array,
+  modalSelector: PropTypes.string,
+  modalIdSelector: PropTypes.number,
 };

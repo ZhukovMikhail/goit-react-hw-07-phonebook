@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Form, Field } from 'formik';
+import { StyledButton } from 'components/Button/Button.Styled';
 // import { Formik, Field, ErrorMessage } from 'formik';
 
 export const StyledForm = styled(Form)`
@@ -18,18 +19,19 @@ export const Item = styled(Field)`
   border-radius: 6px;
   background-color: wheat;
 `;
-export const StyledButton = styled.button`
-  display: block;
-  width: 100px;
-  margin-top: 10px;
-  background-color: #726885;
-  border-radius: 6px;
-  color: wheat;
-  transition: 350ms;
-  &:hover,
-  :focus {
-    background-color: #7f7197;
-    color: white;
-    border-color: wheat;
-  }
+
+export const FormBox = styled.div`
+  /* position: relative; */
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const CloseButton = styled(StyledButton)`
+  width: 30px;
+  position: absolute;
+  top: -5px;
+  right: 5px;
 `;

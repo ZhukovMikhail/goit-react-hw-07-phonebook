@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-// import Button from '@mui/material/Button';
 
 export const StyledItem = styled.li`
   display: flex;
@@ -36,7 +35,10 @@ export const StyledButton = styled.button`
   color: transparent;
   transition: 500ms;
   visibility: hidden;
-
+  &[disabled] {
+    border-color: gray !important;
+    background-color: #f5deb385 !important;
+  }
   &.show {
     visibility: visible;
     transition: 500ms;
@@ -51,9 +53,4 @@ export const StyledButton = styled.button`
       border-color: wheat;
     }
   }
-`;
-
-export const EditFormBox = styled.div`
-  display: flex;
-  justify-content: center;
 `;
