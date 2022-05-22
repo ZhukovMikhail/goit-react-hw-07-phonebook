@@ -4,19 +4,11 @@ import {
   useGetContactByIdQuery,
 } from 'redux/createApi';
 import { MyForm } from 'components/Form/Form';
-import { useDispatch } from 'react-redux';
-import { selector } from 'redux/modalSlice';
 import PropTypes from 'prop-types';
 
 export const Modal = ({ id }) => {
-  const dispatch = useDispatch();
   const [editContact, { isLoading }] = useEditContactMutation();
-
-  const { data: contact } = useGetContactByIdQuery(id, {
-    refetchOnMountOrArgChange: 1,
-  });
-
-  isLoading && dispatch(selector(false));
+  const { data: contact } = useGetContactByIdQuery(id);
   isLoading && document.querySelector('body').classList.remove('fixed');
   return (
     <>

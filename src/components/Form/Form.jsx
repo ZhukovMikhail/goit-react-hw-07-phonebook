@@ -36,13 +36,13 @@ export const MyForm = ({
       return;
     }
     try {
-      mutator({ id, ...values });
+      await mutator({ id, ...values });
+      resetForm();
+      dispatch(selector(false));
     } catch (error) {
       console.log(error);
+      dispatch(selector(false));
     }
-
-    resetForm();
-    dispatch(selector(false));
   };
 
   return (
