@@ -10,7 +10,8 @@ export const StyledItem = styled.li`
   transition: 500ms;
   border-radius: 4px;
   justify-content: space-between;
-  padding-left: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   /* padding-right: 5px; */
   outline: none;
   align-items: center;

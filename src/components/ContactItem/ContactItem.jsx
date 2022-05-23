@@ -33,9 +33,7 @@ export const ContactItem = ({ contact }) => {
     // document.querySelectorAll('.show').forEach(n => n.classList.remove('show'));
     // e.currentTarget.children[1].classList.add('show');
     // e.currentTarget.children[2].classList.add('show');
-    document
-      .querySelectorAll('.vissible')
-      .forEach(n => n.classList.remove('vissible'));
+
     e.currentTarget.classList.add('vissible');
     // console.log('e', e.currentTarget.id);
     e.currentTarget.id === contact.id && setShow(true);
@@ -53,6 +51,9 @@ export const ContactItem = ({ contact }) => {
     document.querySelector('body').classList.add('fixed');
   };
   const onBlur = e => {
+    document
+      .querySelectorAll('.vissible')
+      .forEach(n => n.classList.remove('vissible'));
     setShow(false);
   };
 
