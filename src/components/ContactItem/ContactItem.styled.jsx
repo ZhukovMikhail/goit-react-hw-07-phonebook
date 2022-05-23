@@ -1,5 +1,14 @@
 import styled from '@emotion/styled';
 
+import {
+  AiFillDelete,
+  AiFillEdit,
+  AiOutlineDelete,
+  AiOutlineEdit,
+} from 'react-icons/ai';
+import { MdDeleteOutline, MdAutoDelete } from 'react-icons/md';
+import { FaUserEdit } from 'react-icons/fa';
+
 export const StyledItem = styled.li`
   display: flex;
   margin-top: 10px;
@@ -8,6 +17,8 @@ export const StyledItem = styled.li`
   justify-content: space-between;
   padding-left: 10px;
   /* padding-right: 5px; */
+  outline: none;
+  align-items: center;
 
   cursor: pointer;
 
@@ -53,4 +64,43 @@ export const StyledButton = styled.button`
       border-color: wheat;
     }
   }
+`;
+export const DeleteIcon = styled(AiFillDelete)`
+  height: 30px;
+  width: 30px;
+  fill: rgba(245, 222, 179, 0.5);
+  transition: 500ms;
+  border-radius: 50%;
+
+  &:hover,
+  :focus {
+    fill: white;
+  }
+`;
+export const EditIcon = styled(FaUserEdit)`
+  height: 30px;
+  width: 30px;
+  fill: rgba(245, 222, 179, 0.5);
+  transition: 500ms;
+
+  &:hover,
+  :focus {
+    fill: white;
+  }
+`;
+export const PreDeleteIcon = styled(MdDeleteOutline)`
+  height: 22px;
+  width: 22px;
+  fill: rgba(245, 222, 179, 0.5);
+`;
+export const PreEditIcon = styled(AiFillEdit)`
+  height: 25px;
+  width: 25px;
+  fill: rgba(245, 222, 179, 0.5);
+`;
+export const DeleteOnLoadIcon = styled(MdAutoDelete)`
+  height: 25px;
+  width: 25px;
+  fill: rgba(245, 222, 179, 0.5);
+  margin-right: 35px;
 `;

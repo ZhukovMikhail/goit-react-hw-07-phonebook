@@ -1,4 +1,15 @@
-import { StyledItem, StyledButton, TextBox } from './ContactItem.styled';
+import {
+  StyledItem,
+  // StyledButton,
+  TextBox,
+  DeleteIcon,
+  EditIcon,
+  PreDeleteIcon,
+  PreEditIcon,
+  DeleteOnLoadIcon,
+} from './ContactItem.styled';
+
+import { useState } from 'react';
 import { useDeleteContactMutation } from 'redux/createApi';
 
 import PropTypes from 'prop-types';
@@ -10,6 +21,7 @@ import { useSelector } from 'react-redux';
 
 export const ContactItem = ({ contact }) => {
   const { name, number, id } = contact;
+  const [show, setShow] = useState(false);
 
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
@@ -18,13 +30,15 @@ export const ContactItem = ({ contact }) => {
   const modalIdSelector = useSelector(state => state.modal.contactId);
 
   const onEnter = e => {
-    document.querySelectorAll('.show').forEach(n => n.classList.remove('show'));
-    e.currentTarget.children[1].classList.add('show');
-    e.currentTarget.children[2].classList.add('show');
+    // document.querySelectorAll('.show').forEach(n => n.classList.remove('show'));
+    // e.currentTarget.children[1].classList.add('show');
+    // e.currentTarget.children[2].classList.add('show');
     document
       .querySelectorAll('.vissible')
       .forEach(n => n.classList.remove('vissible'));
     e.currentTarget.classList.add('vissible');
+    console.log('e', e.currentTarget.id);
+    e.currentTarget.id === contact.id && setShow(true);
   };
 
   const handleDelete = e => {
@@ -38,20 +52,38 @@ export const ContactItem = ({ contact }) => {
 
     document.querySelector('body').classList.add('fixed');
   };
+  const onBlur = e => {
+    setShow(false);
+  };
 
   return (
     <>
-      <StyledItem id={id} onClick={onEnter}>
+      <StyledItem
+        id={id}
+        onClick={onEnter}
+        onFocus={onEnter}
+        onBlur={onBlur}
+        tabIndex={0}
+      >
         <TextBox>
           <span>{name}</span>
           <span>{number}</span>
         </TextBox>
-        <StyledButton type="button" onClick={handleDelete} disabled={isLoading}>
+        {isLoading ? (
+          <DeleteOnLoadIcon />
+        ) : show ? (
+          <DeleteIcon onClick={handleDelete} />
+        ) : (
+          <PreDeleteIcon />
+        )}
+        {/* <StyledButton type="button" onClick={handleDelete} disabled={isLoading}>
           {isLoading ? 'Loading' : 'Delete'}
-        </StyledButton>
-        <StyledButton type="button" onClick={handleEdit} disabled={isLoading}>
+        </StyledButton> */}
+        {!isLoading &&
+          (show ? <EditIcon onClick={handleEdit} /> : <PreEditIcon />)}
+        {/* <StyledButton type="button" onClick={handleEdit} disabled={isLoading}>
           Edit
-        </StyledButton>
+        </StyledButton> */}
       </StyledItem>
       {modalSelector === 'edit' && id === modalIdSelector && (
         <Modal id={id}></Modal>
