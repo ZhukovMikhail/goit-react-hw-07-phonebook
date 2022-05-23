@@ -37,7 +37,7 @@ export const ContactItem = ({ contact }) => {
       .querySelectorAll('.vissible')
       .forEach(n => n.classList.remove('vissible'));
     e.currentTarget.classList.add('vissible');
-    console.log('e', e.currentTarget.id);
+    // console.log('e', e.currentTarget.id);
     e.currentTarget.id === contact.id && setShow(true);
   };
 

@@ -1,11 +1,6 @@
 import styled from '@emotion/styled';
 
-import {
-  AiFillDelete,
-  AiFillEdit,
-  AiOutlineDelete,
-  AiOutlineEdit,
-} from 'react-icons/ai';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { MdDeleteOutline, MdAutoDelete } from 'react-icons/md';
 import { FaUserEdit } from 'react-icons/fa';
 
